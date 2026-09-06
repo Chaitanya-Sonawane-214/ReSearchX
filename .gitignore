@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Backend (Python) — see backend/.gitignore for the rest
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+*.pyc
+
+# Frontend (Node) — see frontend/.gitignore for the rest
+frontend/node_modules/
+frontend/dist/
