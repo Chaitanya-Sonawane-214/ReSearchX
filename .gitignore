@@ -17,3 +17,5 @@ backend/**/__pycache__/
 # Frontend (Node) — see frontend/.gitignore for the rest
 frontend/node_modules/
 frontend/dist/
+
+.env
