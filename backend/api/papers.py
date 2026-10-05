@@ -272,16 +272,35 @@ async def assign_reviewer(paper_id: str, body: AssignReviewerRequest):
 # Directory / dashboard / system
 # --------------------------------------------------------------------------
 
+# @router.get("/reviewers", response_model=List[Reviewer])
+# async def reviewer_directory():
+#     return [
+#         Reviewer(
+#             id=entry["id"], name=entry["name"], expertise=entry["expertise"],
+#             domains=entry["domains"], publications=entry["publications"],
+#             workload=entry["workload"], conflict_of_interest=entry["coi"],
+#             match_score=0, recommendation_score=0, bio=entry["bio"],
+#         )
+#         for entry in reviewer_service.REVIEWER_POOL
+#     ]
+
 @router.get("/reviewers", response_model=List[Reviewer])
 async def reviewer_directory():
     return [
         Reviewer(
-            id=entry["id"], name=entry["name"], expertise=entry["expertise"],
-            domains=entry["domains"], publications=entry["publications"],
-            workload=entry["workload"], conflict_of_interest=entry["coi"],
-            match_score=0, recommendation_score=0, bio=entry["bio"],
+            id=entry["id"],
+            name=entry["name"],
+            expertise=entry["expertise"],
+            domains=entry["domains"],
+            publications=entry["publications"],
+            workload=entry["workload"],
+            conflict_of_interest=entry["coi"],
+            match_score=0,
+            recommendation_score=0,
+            bio=entry["bio"],
         )
-        for entry in reviewer_service.REVIEWER_POOL
+        # for entry in reviewer_service.get_reviewer_pool()
+        for entry in reviewer_service.get_all_reviewers()
     ]
 
 

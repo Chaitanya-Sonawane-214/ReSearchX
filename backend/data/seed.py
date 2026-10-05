@@ -19,7 +19,7 @@ from schemas import (
     Reviewer, SimilarityResult, SimilarityStatus, SimilaritySource, Workload,
 )
 from services.aggregation_service import AGENT_WEIGHTS
-from services.reviewer_service import REVIEWER_POOL
+from database.reviewer_repository import get_reviewer_pool
 
 AGENT_NAMES = list(AGENT_WEIGHTS.keys())
 
@@ -101,12 +101,33 @@ def _editorial_from_score(overall: int) -> EditorialDecision:
     )
 
 
+# def _reviewer(entry_id: str, match: int, rec: int) -> Reviewer:
+#     e = next(r for r in REVIEWER_POOL if r["id"] == entry_id)
+#     return Reviewer(
+#         id=e["id"], name=e["name"], expertise=e["expertise"], domains=e["domains"],
+#         publications=e["publications"], workload=e["workload"], conflict_of_interest=e["coi"],
+#         match_score=match, recommendation_score=rec, bio=e["bio"],
+#     )
+
 def _reviewer(entry_id: str, match: int, rec: int) -> Reviewer:
-    e = next(r for r in REVIEWER_POOL if r["id"] == entry_id)
+    reviewer_pool = get_reviewer_pool()
+
+    e = next(
+        r for r in reviewer_pool
+        if r["id"] == entry_id
+    )
+
     return Reviewer(
-        id=e["id"], name=e["name"], expertise=e["expertise"], domains=e["domains"],
-        publications=e["publications"], workload=e["workload"], conflict_of_interest=e["coi"],
-        match_score=match, recommendation_score=rec, bio=e["bio"],
+        id=e["id"],
+        name=e["name"],
+        expertise=e["expertise"],
+        domains=e["domains"],
+        publications=e["publications"],
+        workload=e["workload"],
+        conflict_of_interest=e["coi"],
+        match_score=match,
+        recommendation_score=rec,
+        bio=e["bio"],
     )
 
 
